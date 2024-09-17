@@ -64,7 +64,7 @@ function buildBlock(blockName, content) {
 function getImageCaption(picture) {
   // Check if the parent element has a caption
   const parentEl = picture.parentNode;
-  let caption = parentEl.querySelector('em');
+  const caption = parentEl.querySelector('em');
   if (caption) return caption;
 
   // If the parent element doesn't have a caption, check if the next sibling does
@@ -72,6 +72,7 @@ function getImageCaption(picture) {
   if (!parentSiblingEl || !parentSiblingEl.querySelector('picture')) return '';
   const firstChildEl = parentSiblingEl.firstChild;
   if (firstChildEl?.tagName === 'EM') return firstChildEl;
+  return '';
 }
 
 async function buildArticleHeader(el) {
@@ -90,7 +91,7 @@ async function buildArticleHeader(el) {
   const articleHeaderBlockEl = buildBlock('article-header', [
     ['<p></p>'],
     [h1],
-    [`<p>${authorURL ? `<a href="${authorURL}">${author}</a>` : author}</p>
+    [`<p><span ${authorURL ? `data-author-page="${authorURL}"` : ''}>${author}</span></p>
       <p>${publicationDate}</p>`],
     [figure],
   ]);
