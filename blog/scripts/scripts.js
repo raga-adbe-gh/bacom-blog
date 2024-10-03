@@ -125,6 +125,7 @@ const CONFIG = {
   codeRoot: '/blog',
   taxonomyRoot: '/tags',
   links: 'on',
+  dynamicNavKey: 'bacom',
   stageDomainsMap: { 'business.stage.adobe.com': { 'business.adobe.com': 'origin' } },
 };
 
