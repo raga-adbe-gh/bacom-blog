@@ -1,11 +1,11 @@
 import { expect } from '@esm-bundle/chai';
 import { readFile } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import { setLibs, buildAutoBlocks } from '../../blog/scripts/utils.js';
+import { setLibs, buildAutoBlocks } from '../../blog/scripts/scripts.js';
 
 describe('Libs', () => {
   it('Default Libs', () => {
-    const libs = setLibs('/libs');
+    const libs = setLibs(window.location);
     expect(libs).to.equal('https://main--milo--adobecom.hlx.live/libs');
   });
 
@@ -14,7 +14,7 @@ describe('Libs', () => {
       hostname: 'business.adobe.com',
       search: '?milolibs=foo',
     };
-    const libs = setLibs('/libs', location);
+    const libs = setLibs(location);
     expect(libs).to.equal('/libs');
   });
 
@@ -23,7 +23,7 @@ describe('Libs', () => {
       hostname: 'localhost',
       search: '?milolibs=foo',
     };
-    const libs = setLibs('/libs', location);
+    const libs = setLibs(location);
     expect(libs).to.equal('https://foo--milo--adobecom.hlx.live/libs');
   });
 
@@ -32,7 +32,7 @@ describe('Libs', () => {
       hostname: 'localhost',
       search: '?milolibs=local',
     };
-    const libs = setLibs('/libs', location);
+    const libs = setLibs(location);
     expect(libs).to.equal('http://localhost:6456/libs');
   });
 
@@ -41,7 +41,7 @@ describe('Libs', () => {
       hostname: 'localhost',
       search: '?milolibs=awesome--milo--forkedowner',
     };
-    const libs = setLibs('/libs', location);
+    const libs = setLibs(location);
     expect(libs).to.equal('https://awesome--milo--forkedowner.hlx.live/libs');
   });
 });
@@ -53,7 +53,7 @@ window.lana = { log: () => {} };
 
 describe('Auto Blocks', () => {
   before(() => {
-    setLibs('/test/scripts/mocks', { hostname: 'none', search: '' });
+    setLibs({ hostname: 'none', search: '' });
     document.head.innerHTML = metadata;
   });
 
